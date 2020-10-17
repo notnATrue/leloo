@@ -24,7 +24,6 @@ export class ThirdPartyAPI {
             const userModel = new UserModel();
             const options = await userModel.generateGetUserDetailsOption(userId);
             const userDetail = await this.customRequest(options);
-            // console.log(`userDetails: ${ JSON.stringify(userDetail) }`);
             const prepareData = await userModel.pickUsersInfo(userDetail);
             usersDetails.push(prepareData);
         }

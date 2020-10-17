@@ -5,7 +5,11 @@ export class UserModel {
         const prepareData = _.pick(user, ["id", "name", "from", "email", "links"]);
         if (prepareData.links?.orders) {
             const orders = prepareData.links.orders;
-            prepareData.orders = orders;
+            // prepareData.orders = orders;
+            prepareData.orders = [];
+            for (const order of orders) {
+                prepareData.orders.push({ id: order["id"] });
+            }
             delete prepareData.links;
         }
         return prepareData;

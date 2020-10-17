@@ -1,10 +1,8 @@
 require("dotenv").config();
-
 import express from "express";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import { route } from "./routes/default";
 import { usersRoute } from "./routes/users";
 
 const app = express();
@@ -16,8 +14,6 @@ app.use(cookieParser());
 app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', route);
 
 app.get('/users', usersRoute);
 
