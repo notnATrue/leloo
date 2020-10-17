@@ -21,7 +21,7 @@ app.get('/', route);
 
 app.get('/users', usersRoute);
 
-app.all('*', async(req, res) => {
+app.all('*', async (req, res) => {
   res.json({ code: 403, message: "Forbidden"});
 });
 

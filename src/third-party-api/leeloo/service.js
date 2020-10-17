@@ -5,24 +5,15 @@ require("dotenv").config();
 
 export class ThirdPartyAPI {
     async getUsers() {
-        const options = {
-            url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
-            headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_Token,
-            }
-        };
+        const userModel = new UserModel();
+        const options = await userModel.generateGetUsersOption();
         const users = await this.customRequest(options);
-        console.log(`users? ${ users }`);
         return users;
     };
 
     async getUser(userId) {
-        const options = {
-            url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
-            headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_Token,
-            }
-        };
+        const userModel = new UserModel();
+        const options = await userModel.generateGetUsersOption(userId);
         const user = await this.customRequest(options);
         return user;
     }
@@ -30,14 +21,10 @@ export class ThirdPartyAPI {
     async getUsersDetails(userIds) {
         let usersDetails = [];
         for (const userId of userIds) {
-            const userDetail = await this.customRequest({
-                url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
-                headers: {
-                    'X-Leeloo-AuthToken': process.env.AUTH_Token
-                }
-            });
-            console.log(`userDetails: ${ JSON.stringify(userDetail) }`);
             const userModel = new UserModel();
+            const options = await userModel.generateGetUserDetailsOption(userId);
+            const userDetail = await this.customRequest(options);
+            // console.log(`userDetails: ${ JSON.stringify(userDetail) }`);
             const prepareData = await userModel.pickUsersInfo(userDetail);
             usersDetails.push(prepareData);
         }

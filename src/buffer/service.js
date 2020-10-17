@@ -1,3 +1,3 @@
-class Buffer {
+export class Buffer {
 
 }

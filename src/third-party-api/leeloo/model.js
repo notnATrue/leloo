@@ -9,5 +9,35 @@ export class UserModel {
             delete prepareData.links;
         }
         return prepareData;
+    };
+
+    async generateGetUsersOption() {
+        const options = {
+            url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
+            headers: {
+            'X-Leeloo-AuthToken': process.env.AUTH_Token,
+            }
+        };
+        return options;
+    };
+
+    async generateGetUserOption(userId) {
+        const options = {
+            url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
+            headers: {
+            'X-Leeloo-AuthToken': process.env.AUTH_Token,
+            }
+        };
+        return options;
     }
+
+    async generateGetUserDetailsOption(userId) {
+        const options = {
+            url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
+            headers: {
+                'X-Leeloo-AuthToken': process.env.AUTH_Token
+            }
+        };
+        return options;
+    };
 }
