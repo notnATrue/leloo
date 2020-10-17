@@ -1,30 +1,46 @@
 import { ThirdPartyAPI } from "../../third-party-api/leeloo/service.js"
+import { Validator } from "./validator";
 
-export const usersRoute = async function(req, res) {
-    const leelooAPI = new ThirdPartyAPI();
-    let userIds = [];
-    const users = await leelooAPI.getUsers();
-    for (const user of users) {
-        userIds.push(user.id)
+export const usersRoute = async function(req, res, next) {
+    try {
+        const leelooAPI = new ThirdPartyAPI();
+        let userIds = [];
+        const users = await leelooAPI.getUsers();
+        // const validatedUsers = await Validator.getUserParams(users);
+        console.log(`users from getUsers: ${ users }`);
+        if (typeof users === "string") {
+            res.json({ statusCode: 422, response: users })
+        }
+        for (const user of users) {
+            userIds.push(user.id)
+        };
+        const usersInfo = await leelooAPI.getUsersDetails(userIds);
+        console.log(`usersInfo from getUsersDetails: ${ usersInfo }`);
+        // 
+        console.log(`jsonData: ${ JSON.stringify(usersInfo) }`);
+        res.json({ statusCode: 200, data: usersInfo });
+    } catch (err) {
+        next(err);
     };
-    const usersInfo = await leelooAPI.getUsersDetails(userIds);
-    // let jsonData = [];
-    // for (const userInfo of usersInfo) {
-    //     let prepareUserInfo = Object.assign({}, userInfo);
-    //     if (userInfo.orders) {
-    //         if (userInfo.orders.length > 0) {
-    //             let userOrders = [];
-    //             for (const order of userInfo.orders) {
-    //                 const id = order["id"];
-    //                 const prepareUserOrders = await leelooAPI.getOrder(id);
-    //                 userOrders.push(prepareUserOrders);
-    //             }
-    //             delete prepareUserInfo.orders;
-    //             prepareUserInfo.orders = userOrders;
-    //             jsonData.push(prepareUserInfo);
-    //         }
-    //     }
-    // }
-    console.log(`jsonData: ${ JSON.stringify(usersInfo) }`);
-    res.json({ statusCode: 200, data: usersInfo });
 };
+
+
+
+
+// let jsonData = [];
+        // for (const userInfo of usersInfo) {
+        //     let prepareUserInfo = Object.assign({}, userInfo);
+        //     if (userInfo.orders) {
+        //         if (userInfo.orders.length > 0) {
+        //             let userOrders = [];
+        //             for (const order of userInfo.orders) {
+        //                 const id = order["id"];
+        //                 const prepareUserOrders = await leelooAPI.getOrder(id);
+        //                 userOrders.push(prepareUserOrders);
+        //             }
+        //             delete prepareUserInfo.orders;
+        //             prepareUserInfo.orders = userOrders;
+        //             jsonData.push(prepareUserInfo);
+        //         }
+        //     }
+        // }

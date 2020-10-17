@@ -14,7 +14,7 @@ export class UserModel {
         return prepareData;
     };
 
-    static async generateGetUsersOption() {
+    async generateGetUsersOption() {
         const options = {
             url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
             headers: {
@@ -24,7 +24,7 @@ export class UserModel {
         return options;
     };
 
-    static async generateGetUserDetailsOption(userId) {
+    async generateGetUserDetailsOption(userId) {
         const options = {
             url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
             headers: {
@@ -34,7 +34,7 @@ export class UserModel {
         return options;
     };
 
-    static async generateGetOrderIdOption(id) {
+    async generateGetOrderIdOption(id) {
         const options = {
             url: `https://api.leeloo.ai/api/v1/orders/${ id }`,
             headers: {
