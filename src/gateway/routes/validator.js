@@ -1,13 +1,10 @@
-import Joi from 'joi';
+// import Joi from 'joi';
 
 export class Validator {
-  static async getUserParams(params) {
-    const schema = Joi.not()
-    const { error, value } = schema.validate(params);
-    if (error) {
-        console.error(`error inside validator ${ error }`);
-        return error;
+    static async getUserParams(params) {
+        if (params === "Too many requests, please try again later") {
+            return false;
+        }
+        return params;
     }
-    return value;
-  }
 }

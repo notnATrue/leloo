@@ -5,12 +5,18 @@ import { Validator } from "./validator";
 export class ThirdPartyAPI {
     async customRequest(options) {
         return new Promise(function(resolve, reject) {
-            request(options, async function (error, response, dto) {
-                console.log(`dto from requst: ${ dto }`)
-                const parsedJson = await JSON.parse(dto);
-                const prepareData = parsedJson.data;
-                resolve(prepareData);
-                reject(new Error(error));
+           return request(options, async function (error, response, dto) {
+                console.log(`dto from requst: ${ dto }`);
+                console.log(`typeof dto from request ${ typeof dto}`);
+                const validator = new Validator();
+                const validatedDTO = await validator.checkResponse(dto);
+                if (validatedDTO === false || error) {
+                    resolve(false);
+                } else {
+                    const parsedJson = JSON.parse(dto);
+                    const prepareData = parsedJson.data;
+                    resolve(prepareData);
+                }
             });
         });
     };
@@ -23,14 +29,14 @@ export class ThirdPartyAPI {
     };
 
     async getUsersDetails(userIds) {
-        // if (typeof userDetail !== "string" || typeof userDetail !== "object") {
-        //         return { body: "getUsersDetails error", userIds}
-        // }
         let usersDetails = [];
         for (const userId of userIds) {
             const userModel = new UserModel();
             const options = await userModel.generateGetUserDetailsOption(userId);
             const userDetail = await this.customRequest(options);
+            if (userDetail === false) {
+                usersDetails.push({ message: "Invalid response"});
+            }
             
             const prepareData = await userModel.pickUsersInfo(userDetail);
             usersDetails.push(prepareData);
