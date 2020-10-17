@@ -5,7 +5,6 @@ export class UserModel {
         const prepareData = _.pick(user, ["id", "name", "from", "email", "links"]);
         if (prepareData.links?.orders) {
             const orders = prepareData.links.orders;
-            // prepareData.orders = orders;
             prepareData.orders = [];
             for (const order of orders) {
                 prepareData.orders.push({ id: order["id"] });
@@ -15,7 +14,7 @@ export class UserModel {
         return prepareData;
     };
 
-    async generateGetUsersOption() {
+    static async generateGetUsersOption() {
         const options = {
             url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
             headers: {
@@ -25,21 +24,21 @@ export class UserModel {
         return options;
     };
 
-    async generateGetUserOption(userId) {
-        const options = {
-            url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
-            headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_Token,
-            }
-        };
-        return options;
-    }
-
-    async generateGetUserDetailsOption(userId) {
+    static async generateGetUserDetailsOption(userId) {
         const options = {
             url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
             headers: {
                 'X-Leeloo-AuthToken': process.env.AUTH_Token
+            }
+        };
+        return options;
+    };
+
+    static async generateGetOrderIdOption(id) {
+        const options = {
+            url: `https://api.leeloo.ai/api/v1/orders/${ id }`,
+            headers: {
+            'X-Leeloo-AuthToken': process.env.AUTH_Token,
             }
         };
         return options;

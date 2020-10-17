@@ -2,13 +2,11 @@ import { ThirdPartyAPI } from "../../third-party-api/leeloo/service.js"
 
 export const usersRoute = async function(req, res) {
     const leelooAPI = new ThirdPartyAPI();
-
     let userIds = [];
     const users = await leelooAPI.getUsers();
     for (const user of users) {
         userIds.push(user.id)
-    }
-
+    };
     const usersInfo = await leelooAPI.getUsersDetails(userIds);
     // let jsonData = [];
     // for (const userInfo of usersInfo) {
@@ -27,7 +25,6 @@ export const usersRoute = async function(req, res) {
     //         }
     //     }
     // }
-    
     console.log(`jsonData: ${ JSON.stringify(usersInfo) }`);
-    res.json({ message: 'ok', usersInfo });
-}
+    res.json({ statusCode: 200, data: usersInfo });
+};
