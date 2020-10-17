@@ -8,6 +8,4 @@ export class Validator {
         }
         return data;
     }
-
-
 }

@@ -23,7 +23,7 @@ app.all('*', async (req, res) => {
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send({ statusCode: 500, message: "Server error " });
+  res.status(500).send({ statusCode: 500, message: err.message });
 });
 
 app.listen(port);
