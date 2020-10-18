@@ -1,5 +1,4 @@
-const NodeCache = require( "node-cache" );
-// const responseCache = new NodeCache();
+import NodeCache from  "node-cache";
 
 export const buffer = {
     responseCache: new NodeCache(),
