@@ -5,18 +5,14 @@ import { Validator } from "./validator";
 export class ThirdPartyAPI {
     async customRequest(options) {
         return new Promise(function(resolve, reject) {
-            return request(options, async function (error, response, dto) {
-                console.log(`dto from requst: ${ dto }`);
-                console.log(`typeof dto from request ${ typeof dto}`);
+            return request(options,async function (error, response, dto) {
+                if (error) {
+                    reject(error);
+                }
                 const validator = new Validator();
-                const validatedDTO = await validator.checkResponse(dto);
-                if (validatedDTO === false || error) {
-                    reject({ message: "Error on leeloo API request" });
-                } else {
-                    const parsedJson = JSON.parse(dto);
-                    const prepareData = parsedJson.data;
-                    resolve(prepareData);
-                };
+                const validatedParsedDTO = await validator.isJSON(dto).catch(err => reject(err));
+                const prepareData = validatedParsedDTO.data;
+                resolve(prepareData);
             });
         });
     };
@@ -40,7 +36,7 @@ export class ThirdPartyAPI {
                 const options = await userModel.generateGetUserDetailsOption(userId);
                 const userDetail = await this.customRequest(options);
                 if (userDetail === false) {
-                    usersDetails.push({ message: "Invalid response"});
+                    return false;
                 }
                 const prepareData = await userModel.pickUsersInfo(userDetail);
                 usersDetails.push(prepareData);
@@ -49,7 +45,6 @@ export class ThirdPartyAPI {
         } catch(err) {
             throw new Error(err)
         }
-
     };
 
     async getOrder(id) {
@@ -61,7 +56,6 @@ export class ThirdPartyAPI {
         } catch(err) {
             throw new Error(err);
         }
-
     };
 }
 

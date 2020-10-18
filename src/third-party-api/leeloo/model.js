@@ -2,16 +2,21 @@ import _ from "lodash";
 
 export class UserModel {
     async pickUsersInfo(user) {
-        const prepareData = _.pick(user, ["id", "name", "from", "email", "links"]);
-        if (prepareData.links?.orders) {
-            const orders = prepareData.links.orders;
-            prepareData.orders = [];
-            for (const order of orders) {
-                prepareData.orders.push({ id: order["id"] });
+        try {
+            const prepareData = _.pick(user, ["id", "name", "from", "email", "links"]);
+            if (prepareData.links?.orders) {
+                const orders = prepareData.links.orders;
+                prepareData.orders = [];
+                for (const order of orders) {
+                    prepareData.orders.push({ id: order["id"] });
+                }
+                delete prepareData.links;
             }
-            delete prepareData.links;
+            return prepareData;
+        } catch(err) {
+            throw new Error("Model error");
         }
-        return prepareData;
+
     };
 
     async generateGetUsersOption() {

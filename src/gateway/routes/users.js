@@ -6,20 +6,45 @@ export const usersRoute = async function(req, res, next) {
         const leelooAPI = new ThirdPartyAPI();
         let userIds = [];
         const users = await leelooAPI.getUsers();
+        console.log(users);
         const validatedUsers = await Validator.getUserParams(users);
-        if (validatedUsers === false) {
-            return res.json({ statusCode: 422, message: "To Many Requests to leeloo API" });
-        }
-        for (const user of users) {
+        for (const user of validatedUsers) {
             userIds.push(user.id)
         };
         const usersInfo = await leelooAPI.getUsersDetails(userIds);
-        console.log(`usersInfo from getUsersDetails: ${ usersInfo }`);
         return res.json({ statusCode: 200, data: usersInfo });
     } catch (err) {
         next(err);
     };
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
