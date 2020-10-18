@@ -18,33 +18,29 @@ export class UserModel {
         }
     };
 
-    async generateGetUsersOption() {
+    async optionGenerator(method, id) {
         const options = {
-            url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
-            headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_TOKEN,
-            }
-        };
-        return options;
-    };
-
-    async generateGetUserDetailsOption(userId) {
-        const options = {
-            url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
-            headers: {
+            getUsers: {
+                url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
+                headers: {
                 'X-Leeloo-AuthToken': process.env.AUTH_TOKEN,
-            }
+                }
+            },
+            getUserDetails: {
+                url: `https://api.stage.leeloo.ai/api/v1/accounts/${ id }?include=contactedUsers,orders`,
+                headers: {
+                    'X-Leeloo-AuthToken': process.env.AUTH_TOKEN,
+                }
+            },
+            GetOrderId: {
+                url: `https://api.leeloo.ai/api/v1/orders/${ id }`,
+                headers: {
+                'X-Leeloo-AuthToken': process.env.AUTH_TOKEN,
+                }
+            },
         };
-        return options;
-    };
-
-    async generateGetOrderIdOption(id) {
-        const options = {
-            url: `https://api.leeloo.ai/api/v1/orders/${ id }`,
-            headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_TOKEN,
-            }
-        };
-        return options;
+        const option = options[method];
+        console.log(option);
+        return option;
     };
 }

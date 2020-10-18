@@ -20,7 +20,7 @@ export class ThirdPartyAPI {
     async getUsers() {
         try {
             const userModel = new UserModel();
-            const options = await userModel.generateGetUsersOption();
+            const options = await userModel.optionGenerator("getUsers");
             const users = await this.customRequest(options);
             return users;
         } catch(err) {
@@ -33,7 +33,7 @@ export class ThirdPartyAPI {
             let usersDetails = [];
             for (const userId of userIds) {
                 const userModel = new UserModel();
-                const options = await userModel.generateGetUserDetailsOption(userId);
+                const options = await userModel.optionGenerator("getUserDetails", userId);
                 const userDetail = await this.customRequest(options);
                 if (userDetail === false) {
                     return false;
