@@ -12,6 +12,6 @@
   http://localhost:3000/users
 
 ## todo ##
-emiter for buffer
-getter for buffer
-what is pagination
+# emiter for buffer
+# getter for buffer
+# what is pagination

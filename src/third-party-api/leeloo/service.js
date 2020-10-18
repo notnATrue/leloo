@@ -1,6 +1,7 @@
 import request from "request";
 import { UserModel } from "./model";
 import { Validator } from "./validator";
+import { GET_USER_DETAILS, GET_USERS } from "../../common/custom-urls";
 
 export class ThirdPartyAPI {
     async customRequest(options) {
@@ -20,7 +21,7 @@ export class ThirdPartyAPI {
     async getUsers() {
         try {
             const userModel = new UserModel();
-            const options = await userModel.optionGenerator("getUsers");
+            const options = await userModel.optionGenerator(GET_USERS);
             const users = await this.customRequest(options);
             return users;
         } catch(err) {
@@ -33,7 +34,7 @@ export class ThirdPartyAPI {
             let usersDetails = [];
             for (const userId of userIds) {
                 const userModel = new UserModel();
-                const options = await userModel.optionGenerator("getUserDetails", userId);
+                const options = await userModel.optionGenerator(GET_USER_DETAILS, userId);
                 const userDetail = await this.customRequest(options);
                 if (userDetail === false) {
                     return false;
