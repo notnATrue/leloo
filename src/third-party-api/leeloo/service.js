@@ -36,9 +36,6 @@ export class ThirdPartyAPI {
                 const userModel = new UserModel();
                 const options = await userModel.optionGenerator(GET_USER_DETAILS, userId);
                 const userDetail = await this.customRequest(options);
-                if (userDetail === false) {
-                    return false;
-                }
                 const prepareData = await userModel.pickUsersInfo(userDetail);
                 usersDetails.push(prepareData);
             };

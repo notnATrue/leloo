@@ -21,4 +21,21 @@ export class Validator {
         }
         return value;
     }
+
+    static async getUserDetailsParams(params) {
+        const schema = Joi.array().items(
+            Joi.object().keys({
+                id: Joi.string().hex().length(24),
+                name: Joi.string(),
+                from: Joi.string(),
+                email: Joi.string(),
+                orders: Joi.array(),
+            }),
+        );
+        const { error, value } = schema.validate(params);
+        if (error) {
+          throw new Error(error);
+        }
+        return value;
+    }
 }
