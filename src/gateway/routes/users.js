@@ -12,10 +12,7 @@ export const usersRoute = async function(req, res, next) {
             userIds.push(user.id)
         };
         const usersInfo = await leelooAPI.getUsersDetails(userIds);
-        // console.log(usersInfo);
         const parsedUsersInfo = await Validator.getUserDetailsParams(usersInfo);
-        console.log(parsedUsersInfo)
-
         await buffer.setBuffer(parsedUsersInfo);
         console.log(await buffer.getBufferPool());
         return res.json({ statusCode: 200, data: parsedUsersInfo });
