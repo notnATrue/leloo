@@ -1,13 +1,13 @@
 ### Test task for leeloo company. ###
 
-## Instalation: ##
+### Instalation: ###
   npm i --save
-## Running ##
+### Running ###
   npm run start:dev
-## Running tests ##
+### Running tests ###
   npm run test
 
-## EndPoints: ##
+### EndPoints: ###
   http://localhost:3000/users
 
 ## todo ##

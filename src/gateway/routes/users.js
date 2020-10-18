@@ -4,7 +4,6 @@ import { buffer } from "../../buffer/service";
 
 export const usersRoute = async function(req, res, next) {
     try {
-        console.log(buffer);
         const leelooAPI = new ThirdPartyAPI();
         let userIds = [];
         const users = await leelooAPI.getUsers();
@@ -13,7 +12,8 @@ export const usersRoute = async function(req, res, next) {
             userIds.push(user.id)
         };
         const usersInfo = await leelooAPI.getUsersDetails(userIds);
-        await buffer.addBuffer(usersInfo);
+        await buffer.setBuffer(usersInfo);
+        console.log(await buffer.getBufferPool());
         return res.json({ statusCode: 200, data: usersInfo });
     } catch (err) {
         next(err);
