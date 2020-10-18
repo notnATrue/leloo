@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "f226f913-fc71-47b1-8872-0a6324fcad35",
+		"name": "Leeloo Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get User List",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Leeloo-AuthToken",
+						"value": "92353r4ezvvxfr7v9lkho6b7w50ktyaar5nvzkdmgkk9fnu37fop3brphyb8sbsnkcsg331xv477rv6vryd8rc7ox4q6kc8q88zj",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stage",
+						"leeloo",
+						"ai"
+					],
+					"path": [
+						"api",
+						"v1",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "50"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Final route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Leeloo-AuthToken",
+						"value": "92353r4ezvvxfr7v9lkho6b7w50ktyaar5nvzkdmgkk9fnu37fop3brphyb8sbsnkcsg331xv477rv6vryd8rc7ox4q6kc8q88zj",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.leeloo.ai/api/v1/orders/5f745a9b4788e7000dc69d43",
+					"protocol": "https",
+					"host": [
+						"api",
+						"leeloo",
+						"ai"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"5f745a9b4788e7000dc69d43"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
