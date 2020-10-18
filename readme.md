@@ -5,8 +5,7 @@
 ### Running ###
   npm run start:dev
 ### Running tests ###
-  npm run test
-  npm run newman
+  npm run dev:test
 
 ### EndPoints: ###
   http://localhost:3000/users
