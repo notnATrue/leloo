@@ -1,21 +1,24 @@
 require("dotenv").config();
 import express from "express";
-import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import { usersRoute } from "./routes/users";
 import compression from 'compression';
+import helmet from "helmet";
+import cors from "cors";
+import { usersRoute } from "./routes/users";
 import { errorHandler, requestLimiter } from "./middleware";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
+app.use(helmet());
+app.use(cors());
+
 app.use(requestLimiter);
 
 app.get('/users', usersRoute);

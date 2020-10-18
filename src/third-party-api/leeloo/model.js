@@ -23,7 +23,7 @@ export class UserModel {
         const options = {
             url: 'https://api.stage.leeloo.ai/api/v1/accounts?limit=50&offset=0',
             headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_Token,
+            'X-Leeloo-AuthToken': "92353r4ezvvxfr7v9lkho6b7w50ktyaar5nvzkdmgkk9fnu37fop3brphyb8sbsnkcsg331xv477rv6vryd8rc7ox4q6kc8q88zj",
             }
         };
         return options;
@@ -33,7 +33,7 @@ export class UserModel {
         const options = {
             url: `https://api.stage.leeloo.ai/api/v1/accounts/${ userId }?include=contactedUsers,orders`,
             headers: {
-                'X-Leeloo-AuthToken': process.env.AUTH_Token
+                'X-Leeloo-AuthToken': "92353r4ezvvxfr7v9lkho6b7w50ktyaar5nvzkdmgkk9fnu37fop3brphyb8sbsnkcsg331xv477rv6vryd8rc7ox4q6kc8q88zj"
             }
         };
         return options;
@@ -43,7 +43,7 @@ export class UserModel {
         const options = {
             url: `https://api.leeloo.ai/api/v1/orders/${ id }`,
             headers: {
-            'X-Leeloo-AuthToken': process.env.AUTH_Token,
+            'X-Leeloo-AuthToken': "92353r4ezvvxfr7v9lkho6b7w50ktyaar5nvzkdmgkk9fnu37fop3brphyb8sbsnkcsg331xv477rv6vryd8rc7ox4q6kc8q88zj",
             }
         };
         return options;

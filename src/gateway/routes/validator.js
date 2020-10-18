@@ -14,11 +14,11 @@ export class Validator {
                 createdAt: Joi.string(),
                 updatedAt: Joi.string(),
             })
-        )
+        );
         const { error, value } = schema.validate(params);
         if (error) {
           throw new Error(error);
         }
         return value;
-      }
+    }
 }

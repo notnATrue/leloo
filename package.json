@@ -2,16 +2,17 @@
   "name": "leeloo",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/gateway/service.js",
+  "main": "./src/gateway/app.js",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "start": "node ./src/gateway/service.js",
-    "start:dev": "nodemon --exec npm run babel-node -- ./src/gateway/service.js"
+    "start:dev": "nodemon --exec npm run babel-node -- ./src/gateway/app.js",
+    "test": "jest --env"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.1.3",
@@ -24,6 +25,8 @@
     "@babel/core": "^7.12.1",
     "@babel/node": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.5.2",
+    "babel-polyfill": "^6.26.0",
     "jest": "^26.5.3",
     "nodemon": "^2.0.5"
   },
