@@ -19,9 +19,7 @@ export class ThirdPartyAPI {
 
     async getUsers() {
         try {
-            console.logo(UserModel)
             const userModel = new UserModel();
-            
             const options = await userModel.generateGetUsersOption();
             const users = await this.customRequest(options);
             return users;
