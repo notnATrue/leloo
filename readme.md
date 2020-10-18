@@ -5,7 +5,9 @@
 ### Running ###
   npm run start:dev
 ### Running tests ###
-  npm run dev:test
+  npm run jest,
+  npm run newman,
+  npm run dev:test(experimental)
 
 ### EndPoints: ###
   http://localhost:3000/users
