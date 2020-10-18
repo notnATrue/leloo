@@ -40,7 +40,6 @@ export class UserModel {
             },
         };
         const option = options[method];
-        console.log(option);
         return option;
     };
 }

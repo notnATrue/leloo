@@ -10,13 +10,11 @@ export const buffer = {
             this.responseCount = 0;
         }
         if (this.responseCache.has(this.responseCount) === true) {
-            console.log(this.responseCount)
             this.responseCache.del(this.responseCount);
         }
     },
     setBuffer: async function(jsonData) {
         await this.responseCacheController();
-        console.log(this.responseCount)
         this.responseCache.set(this.responseCount, jsonData);
     },
     getBufferPool: async function() {
