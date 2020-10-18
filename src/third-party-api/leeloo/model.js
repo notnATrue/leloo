@@ -14,9 +14,8 @@ export class UserModel {
             }
             return prepareData;
         } catch(err) {
-            throw new Error("Model error");
+            throw new Error(err);
         }
-
     };
 
     async generateGetUsersOption() {

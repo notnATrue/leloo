@@ -2,8 +2,30 @@ require("dotenv").config();
 import "babel-polyfill";
 import "jest";
 import { ThirdPartyAPI } from "../src/third-party-api/leeloo/service";
+import { Validator } from "../src/gateway/routes/validator";
 
 const thirdPartyApi = new ThirdPartyAPI();
+
+test("Validating trully user data leeloo API", async () => {
+    try {
+        const userData = [{"id":"5f7f0365d18861000d1b7549","person_id":"5f7f0365d18861000d1b7548","name":"Marina","tags":[],"from":"TELEGRAM","botStatus":"BOT","lastMessageTime":"2020-10-08T12:17:41.102Z","createdAt":"2020-10-08T12:17:41.088Z"}];
+        const validatedData = await Validator.getUserParams(userData);
+        expect(validatedData).not.toBe(null);
+        expect(validatedData).not.toBe(undefined);
+        expect(typeof validatedData).toBe("object");
+    } catch(err) {
+        throw new Error(err);
+    };
+});
+
+test("Validating falsy user data leeloo API", async () => {
+    try {
+        const userData = [{"person_id":"5f7f0365d18861000d1b7548","name":"Marina","tags":[],"from":"TELEGRAM","botStatus":"BOT","lastMessageTime":"2020-10-08T12:17:41.102Z","createdAt":"2020-10-08T12:17:41.088Z"}];
+        await expect(Validator.getUserParams(userData)).rejects.toThrow();
+    } catch(err) {
+        throw new Error(err);
+    };
+});
 
 test('Gets Users from leeloo API', async () => {
     try {
@@ -26,7 +48,7 @@ test('Gets UserDetails from leeloo API', async () => {
     } catch(err) {
         throw new Error(err);
     }
-})
+});
 
 test("Testing custom request for Get Users from leeloo API", async () => {
     try {
