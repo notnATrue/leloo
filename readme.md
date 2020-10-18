@@ -1,10 +1,10 @@
-Test task for leeloo company.
+## Test task for leeloo company. ##
 
-Instalation:
+# Instalation: #
   npm i --save
-Running
+# Running #
   npm run start:dev
-Running tests
+# Running tests #
   npm run test
 
 EndPoints:
