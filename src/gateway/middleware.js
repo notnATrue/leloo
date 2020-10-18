@@ -9,3 +9,7 @@ export const requestLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 1000
 });
+
+export const badRequestHandler = async function(req, res, next) {
+    return res.status(403).json({ code: 403, message: "Forbidden"});
+};

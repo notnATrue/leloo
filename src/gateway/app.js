@@ -6,7 +6,7 @@ import compression from 'compression';
 import helmet from "helmet";
 import cors from "cors";
 import { usersRoute } from "./routes/users";
-import { errorHandler, requestLimiter } from "./middleware";
+import { errorHandler, requestLimiter, badRequestHandler } from "./middleware";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,9 +22,7 @@ app.use(requestLimiter);
 
 app.get('/users', usersRoute);
 
-app.all('*', async (req, res) => {
-  res.json({ code: 403, message: "Forbidden"});
-});
+app.all('*', badRequestHandler);
 
 app.use(errorHandler);
 
